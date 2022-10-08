@@ -1,7 +1,5 @@
 import requests
-import pytest
 
-@pytest.fixture(scope='module')
 def test_happy_path():
     data = { "roomSize" : [5, 5], 
     "coords" : [1, 2], 
@@ -14,4 +12,4 @@ def test_happy_path():
         + str(resp.status_code)
 
     
-test_happy_path()
+#test_happy_path()
