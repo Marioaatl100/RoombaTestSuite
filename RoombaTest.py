@@ -9,7 +9,7 @@ def test_api_post():
     "patches" : [[1, 0], [2, 2], [2, 3] ], 
     "instructions" : "NNESEESWNWW"}
 
-    resp = requests.post(url=" http://localhost:8080/v1/cleaning-sessions", data=data)
+    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", data=data)
     print(resp.json())
     data = resp.json()
     assert (resp.status_code == 200), "Status code is not 201. Rather found : "\
