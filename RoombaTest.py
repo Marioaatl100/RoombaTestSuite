@@ -7,7 +7,7 @@ def test_api_get():
     assert (resp.status_code == 200), "Status code is not 200. Rather found : " + str(resp.status_code)
     for record in resp.json()['data']:
         if record['id'] == 4:
-            assert record['first_name'] == "Eve",\
+            assert record['first_name'] == "Eve1",\
                 "Data not matched! Expected : Eve, but found : " + str(record['first_name'])
             assert record['last_name'] == "Holt",\
                 "Data not matched! Expected : Holt, but found : " + str(record['last_name'])
