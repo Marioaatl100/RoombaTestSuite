@@ -23,3 +23,6 @@ def test_api_post():
         Expected : John, but found : " + str(data['name'])
     assert data['job'] == "QA", "User created with wrong job. \
         Expected : QA, but found : " + str(data['name'])
+
+test_api_get()
+test_api_post()
