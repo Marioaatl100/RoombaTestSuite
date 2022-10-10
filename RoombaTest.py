@@ -1,4 +1,6 @@
 import requests
+import pytest
+import allure
 
 def test_happy_path():
     data = { "roomSize" : [5, 5], 
@@ -8,8 +10,11 @@ def test_happy_path():
 
     resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
     data = resp.json()
-    assert (resp.status_code == 200), "Status code is not 200. Rather found : "\
-        + str(resp.status_code)
+    if resp.status_code == 200:
+        assert True
+    else:
+        assert False
+
 
     
 #test_happy_path()
