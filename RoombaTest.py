@@ -55,6 +55,53 @@ def test_coords_output():
         assert True
     else:
         assert False
-    
+
+#Test verifying it remains inside the roomsize
+def test_limit_size_movement():
+    data = { "roomSize" : [5, 5], 
+    "coords" : [0, 0], 
+    "patches" : [ [1, 0], [2, 2], [2, 3] ], 
+    "instructions" : "NNNNNNNN"}
+    #Flag for the asserts
+    flag = True
+    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
+    data = resp.json()
+
+    #Validations from payload
+    if resp.status_code != 200:
+        flag = False
+
+    if data['coords'] != [0,4]:
+        flag = False
+       
+    if data['patches'] != 1:
+        flag = False
+
+    #Assert
+    if flag:
+        assert True
+    else:
+        assert False
+
+#Test verifying [0,0] roomsize, I expected some kind of error response
+def test_invalid_roomsize():
+    data = { "roomSize" : [0, 0], 
+    "coords" : [0, 0], 
+    "patches" : [ [1, 0], [2, 2], [2, 3] ], 
+    "instructions" : "NNNNNNNN"}
+    #Flag for the asserts
+    flag = True
+    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
+    print(resp)
+    #Validations from payload
+    if resp.status_code != 200:
+        flag = False
+
+    #Assert
+    if flag:
+        assert True
+    else:
+        assert False
+ 
     
 #test_happy_path()
