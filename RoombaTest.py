@@ -2,6 +2,7 @@ import requests
 import pytest
 import allure
 
+#Test verifying expected results from bitbucket instructions
 def test_happy_path():
     data = { "roomSize" : [5, 5], 
     "coords" : [1, 2], 
@@ -27,5 +28,33 @@ def test_happy_path():
         assert True
     else:
         assert False
+
+#Test verifying the coords output functionality
+def test_coords_output():
+    data = { "roomSize" : [5, 5], 
+    "coords" : [0, 0], 
+    "patches" : [ [1, 0], [2, 2], [2, 3] ], 
+    "instructions" : "NNEE"}
+    #Flag for the asserts
+    flag = True
+    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
+    data = resp.json()
+
+    #Validations from payload
+    if resp.status_code != 200:
+        flag = False
+
+    if data['coords'] != [2,2]:
+        flag = False
+       
+    if data['patches'] != 1:
+        flag = False
+
+    #Assert
+    if flag:
+        assert True
+    else:
+        assert False
+    
     
 #test_happy_path()
