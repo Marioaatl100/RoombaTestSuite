@@ -186,7 +186,6 @@ def test_no_patches():
     #Flag for the asserts
     flag = True
     resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
-    data = resp.json()
 
     #Validations from payload
     if resp.status_code != 200:
