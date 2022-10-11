@@ -158,11 +158,91 @@ def test_duplicate_patch():
         assert False
 
 #Test verifying error message when coords are out the limits of the roomsize
-def test_duplicate_patch():
+def test_offlimitis_coords():
     data = { "roomSize" : [5, 5], 
     "coords" : [6, 6], 
     "patches" : [ [1, 0], [2, 2], [1, 0] ], 
     "instructions" : "EEEWWW"}
+    #Flag for the asserts
+    flag = True
+    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
+    data = resp.json()
+
+    #Validations from payload
+    if resp.status_code != 400:
+        flag = False
+
+    #Assert
+    if flag:
+        assert True
+    else:
+        assert False
+
+#Test verifying it still works without patches
+def test_no_patches():
+    data = { "roomSize" : [5, 5], 
+    "coords" : [0, 0], 
+    "instructions" : "EEEWWW"}
+    #Flag for the asserts
+    flag = True
+    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
+    data = resp.json()
+
+    #Validations from payload
+    if resp.status_code != 200:
+        flag = False
+
+    #Assert
+    if flag:
+        assert True
+    else:
+        assert False
+
+#Test verifying error when no coordinates
+def test_no_coords():
+    data = { "roomSize" : [5, 5], 
+    "coords" : [0, 0], 
+    "instructions" : "EEEWWW"}
+    #Flag for the asserts
+    flag = True
+    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
+    data = resp.json()
+
+    #Validations from payload
+    if resp.status_code != 200:
+        flag = False
+
+    #Assert
+    if flag:
+        assert True
+    else:
+        assert False
+
+#Test validating error response on invalid instructions
+def test_invalid_instrucctions():
+    data = { "roomSize" : [5, 5], 
+    "coords" : [0, 0], 
+    "instructions" : "AAAAAA"}
+    #Flag for the asserts
+    flag = True
+    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
+    data = resp.json()
+
+    #Validations from payload
+    if resp.status_code != 400:
+        flag = False
+
+    #Assert
+    if flag:
+        assert True
+    else:
+        assert False
+
+#Test validating error response on invalid instructions 2
+def test_invalid_instrucctions():
+    data = { "roomSize" : [5, 5], 
+    "coords" : [0, 0], 
+    "instructions" : "nnnnn"}
     #Flag for the asserts
     flag = True
     resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
