@@ -26,7 +26,7 @@ def test_happy_path():
 
     if flag:
         assert True
-    else 
+    else:
         assert False
     
 #test_happy_path()
