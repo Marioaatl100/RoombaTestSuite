@@ -130,7 +130,7 @@ def test_cleaning_feature():
     else:
         assert False
     
-#
+#Test verifying duplicate patches only count as 1
 def test_duplicate_patch():
     data = { "roomSize" : [5, 5], 
     "coords" : [0, 0], 
@@ -156,4 +156,24 @@ def test_duplicate_patch():
         assert True
     else:
         assert False
-#test_happy_path()
+
+#Test verifying error message when coords are out the limits of the roomsize
+def test_duplicate_patch():
+    data = { "roomSize" : [5, 5], 
+    "coords" : [6, 6], 
+    "patches" : [ [1, 0], [2, 2], [1, 0] ], 
+    "instructions" : "EEEWWW"}
+    #Flag for the asserts
+    flag = True
+    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
+    data = resp.json()
+
+    #Validations from payload
+    if resp.status_code != 400:
+        flag = False
+
+    #Assert
+    if flag:
+        assert True
+    else:
+        assert False
