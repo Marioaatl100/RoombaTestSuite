@@ -74,7 +74,7 @@ def test_limit_size_movement():
     if data['coords'] != [0,4]:
         flag = False
        
-    if data['patches'] != 1:
+    if data['patches'] != 0:
         flag = False
 
     #Assert
@@ -103,5 +103,31 @@ def test_invalid_roomsize():
     else:
         assert False
  
+#Test veryfing patches are cleaned correctly
+def test_cleaning_feature():
+    data = { "roomSize" : [5, 5], 
+    "coords" : [0, 0], 
+    "patches" : [ [1, 0], [2, 2], [2, 3] ], 
+    "instructions" : "EEEWWW"}
+    #Flag for the asserts
+    flag = True
+    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
+    data = resp.json()
+
+    #Validations from payload
+    if resp.status_code != 200:
+        flag = False
+
+    if data['coords'] != [0,0]:
+        flag = False
+       
+    if data['patches'] != 1:
+        flag = False
+
+    #Assert
+    if flag:
+        assert True
+    else:
+        assert False
     
 #test_happy_path()
