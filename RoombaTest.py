@@ -11,7 +11,7 @@ def test_happy_path():
 
     resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
     data = resp.json()
-
+    print(data)
     print(data.coords)
     print(data.patches)
     if resp.status_code != 200:
