@@ -7,23 +7,22 @@ def test_happy_path():
     "coords" : [1, 2], 
     "patches" : [ [1, 0], [2, 2], [2, 3] ], 
     "instructions" : "NNESEESWNWW"}
+    #Flag for the asserts
     flag = True
-
     resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
     data = resp.json()
-    print(data)
-    print(data.coords)
-    print(data.patches)
+
+    #Validations from happy path response
     if resp.status_code != 200:
         flag = False
 
-    if data.coords != [1,3]:
+    if data['coords'] != [1,3]:
         flag = False
        
-    if data.patches != 1:
+    if data['patches'] != 1:
         flag = False
 
-
+    #Assert
     if flag:
         assert True
     else:
