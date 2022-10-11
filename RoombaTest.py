@@ -83,7 +83,7 @@ def test_limit_size_movement():
     else:
         assert False
 
-#Test verifying [0,0] roomsize, I expected some kind of error response
+#Test verifying [0,0] roomsize, 400 response code, I was expecting some kind of error message too
 def test_invalid_roomsize():
     data = { "roomSize" : [0, 0], 
     "coords" : [0, 0], 
@@ -94,7 +94,7 @@ def test_invalid_roomsize():
     resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
     print(resp)
     #Validations from payload
-    if resp.status_code != 200:
+    if resp.status_code != 400:
         flag = False
 
     #Assert
@@ -130,4 +130,30 @@ def test_cleaning_feature():
     else:
         assert False
     
+#
+def test_duplicate_patch():
+    data = { "roomSize" : [5, 5], 
+    "coords" : [0, 0], 
+    "patches" : [ [1, 0], [2, 2], [1, 0] ], 
+    "instructions" : "EEEWWW"}
+    #Flag for the asserts
+    flag = True
+    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
+    data = resp.json()
+
+    #Validations from payload
+    if resp.status_code != 200:
+        flag = False
+
+    if data['coords'] != [0,0]:
+        flag = False
+       
+    if data['patches'] != 1:
+        flag = False
+
+    #Assert
+    if flag:
+        assert True
+    else:
+        assert False
 #test_happy_path()
