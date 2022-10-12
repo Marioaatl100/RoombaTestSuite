@@ -185,7 +185,7 @@ def test_no_patches():
     "instructions" : "EEEWWW"}
     #Flag for the asserts
     flag = True
-    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)
+    resp = requests.post(url="http://localhost:8080/v1/cleaning-sessions", json=data)   
 
     #Validations from payload
     if resp.status_code != 200:
