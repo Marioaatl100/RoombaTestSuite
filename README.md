@@ -41,10 +41,6 @@ Create and activate virtual environment
 virtualenv venv 
 source venv/bin/activate
 ```
-Install requirements
-```bash
-sudo pip3 install requirements 
-```
 Install requets
 ```bash
 sudo pip3 install requests 
