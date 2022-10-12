@@ -65,7 +65,7 @@ Inside the repository
 
 To run the test cases:
 ```bash
-pytest RoombaTest.py --alluredir=allure-report
+pytest RoombaTest.py -v -s --alluredir="allure-report"
 ```
 To generate allure report:
 ```bash
